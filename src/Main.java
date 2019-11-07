@@ -30,9 +30,9 @@ public class Main {
         String email = getUserEmail();
         String phoneNumber = getUserPhoneNumber();
         ArrayList<Education> educationList = getUserEducation();
-        ArrayList<Experience> experiences = getUserExperience();
+        ArrayList<Experience> experienceList = getUserExperience();
         ArrayList<Skills> skillList = getUserSkill();
-        return new Resume(name,email,phoneNumber,educationList,experiences,skillList);
+        return new Resume(name,email,phoneNumber,educationList,experienceList,skillList);
     }
 
     private static String getUserEmail() {
@@ -57,19 +57,30 @@ public class Main {
         ArrayList<Education> educationList = new ArrayList<>();
         String degreeType, major, school;
         int gradYear;
+        Boolean toContinue = true;
         Scanner input = new Scanner(System.in);
-        System.out.println("Education-----");
-        System.out.println("Enter Degree Type: ");
-        degreeType = input.nextLine();
-        System.out.println("Enter Major: ");
-        major = input.nextLine();
-        System.out.println("Enter School: ");
-        school = input.nextLine();
-        System.out.println("Enter Graduation Year: ");
-        gradYear = input.nextInt();
+        do {
+            System.out.println("Education-----");
+            System.out.println("Enter Degree Type: ");
+            degreeType = input.nextLine();
+            System.out.println("Enter Major: ");
+            major = input.nextLine();
+            System.out.println("Enter School: ");
+            school = input.nextLine();
+            System.out.println("Enter Graduation Year: ");
+            gradYear = input.nextInt();
 
-        //adds the data into ArrayList
-        educationList.add(new Education(degreeType, major, school, gradYear));
+            //adds the data into ArrayList
+            educationList.add(new Education(degreeType, major, school, gradYear));
+
+            System.out.println("Would you like to enter another Educational Achievements?(y/n)");
+            input.nextLine();
+            String str = input.nextLine();
+            if(str.equalsIgnoreCase("n")) {
+                toContinue = false;
+            }
+
+        } while(toContinue);
 
         return educationList;
     }
@@ -77,8 +88,9 @@ public class Main {
     private static ArrayList<Experience> getUserExperience() {
         ArrayList<Experience> experiences = new ArrayList<>();
         String company, title, description, startDate, endDate;
+        Boolean toContinue = true;
         Scanner input = new Scanner(System.in);
-
+    do {
         System.out.println("Experience-----");
         System.out.println("Enter Company Name: ");
         company = input.nextLine();
@@ -91,7 +103,15 @@ public class Main {
         System.out.println("End Date: ");
         endDate = input.nextLine();
 
-        experiences.add( new Experience(company,title,description,startDate,endDate));
+        experiences.add(new Experience(company, title, description, startDate, endDate));
+
+        System.out.println("Would you like to enter more Experience Criteria?(y/n)");
+        String str = input.nextLine();
+        if(str.equalsIgnoreCase("n")) {
+            toContinue = false;
+        }
+
+    } while(toContinue);
 
         return experiences;
     }
@@ -99,9 +119,8 @@ public class Main {
     private static ArrayList<Skills> getUserSkill() {
         ArrayList<Skills> skillList = new ArrayList<>();
         String skillName, rating;
+        Boolean toContinue = true;
         Scanner input = new Scanner(System.in);
-        int counter = 0;
-        boolean toContinue = true;
         do {
             System.out.println("Skills-----");
             System.out.println("Enter Skill Name: ");
@@ -110,16 +129,12 @@ public class Main {
             rating = input.nextLine();
 
             skillList.add(new Skills(skillName, rating));
-            counter++;
 
-            if(counter >= 3) {
-                System.out.println("Would you like to input more skills? (y/n) ");
-                String str = input.nextLine();
-                if(str.equalsIgnoreCase("n")) {
-                    toContinue = false;
-                }
+            System.out.println("Do you want another skill?(y/n)");
+            String str = input.nextLine();
+            if(str.equalsIgnoreCase("n")) {
+                toContinue = false;
             }
-
 
         } while (toContinue);
 
