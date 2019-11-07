@@ -1,14 +1,142 @@
+import com.sun.source.tree.UsesTree;
+
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String str;
         ArrayList<Resume> resumes  = new ArrayList<>();
 
-        Resume bob = new Resume("bob", "bob123@gmail.com","201-312-3213",
+
+
+        System.out.println("Would you like to create a resume? (y/n)");
+        str = input.nextLine();
+        if(!str.equalsIgnoreCase("n")) {
+            Resume userResume = getUserResume();
+            System.out.println(userResume.displayText());
+        }
+        input.close();
+    }
+
+    private static Resume getUserResume() {
+        String name = getUserName();
+        String email = getUserEmail();
+        String phoneNumber = getUserPhoneNumber();
+        ArrayList<Education> educationList = getUserEducation();
+        ArrayList<Experience> experiences = getUserExperience();
+        ArrayList<Skills> skillList = getUserSkill();
+        return new Resume(name,email,phoneNumber,educationList,experiences,skillList);
+    }
+
+    private static String getUserEmail() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter an Email: ");
+        return input.nextLine();
+    }
+
+    private static String getUserName() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a Name: ");
+        return input.nextLine();
+    }
+
+    private static String getUserPhoneNumber() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter Phone Number: ");
+        return input.nextLine();
+    }
+
+    private static ArrayList<Education> getUserEducation() {
+        ArrayList<Education> educationList = new ArrayList<>();
+        String degreeType, major, school;
+        int gradYear;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Education-----");
+        System.out.println("Enter Degree Type: ");
+        degreeType = input.nextLine();
+        System.out.println("Enter Major: ");
+        major = input.nextLine();
+        System.out.println("Enter School: ");
+        school = input.nextLine();
+        System.out.println("Enter Graduation Year: ");
+        gradYear = input.nextInt();
+
+        //adds the data into ArrayList
+        educationList.add(new Education(degreeType, major, school, gradYear));
+
+        return educationList;
+    }
+
+    private static ArrayList<Experience> getUserExperience() {
+        ArrayList<Experience> experiences = new ArrayList<>();
+        String company, title, description, startDate, endDate;
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Experience-----");
+        System.out.println("Enter Company Name: ");
+        company = input.nextLine();
+        System.out.println("Enter Title: ");
+        title = input.nextLine();
+        System.out.println("Enter Description: ");
+        description = input.nextLine();
+        System.out.println("Enter Start Date: ");
+        startDate = input.nextLine();
+        System.out.println("End Date: ");
+        endDate = input.nextLine();
+
+        experiences.add( new Experience(company,title,description,startDate,endDate));
+
+        return experiences;
+    }
+
+    private static ArrayList<Skills> getUserSkill() {
+        ArrayList<Skills> skillList = new ArrayList<>();
+        String skillName, rating;
+        Scanner input = new Scanner(System.in);
+        int counter = 0;
+        boolean toContinue = true;
+        do {
+            System.out.println("Skills-----");
+            System.out.println("Enter Skill Name: ");
+            skillName = input.nextLine();
+            System.out.println("Fundamental, Novice, Intermediate, Advanced or Expert?");
+            rating = input.nextLine();
+
+            skillList.add(new Skills(skillName, rating));
+            counter++;
+
+            if(counter >= 3) {
+                System.out.println("Would you like to input more skills? (y/n) ");
+                String str = input.nextLine();
+                if(str.equalsIgnoreCase("n")) {
+                    toContinue = false;
+                }
+            }
+
+
+        } while (toContinue);
+
+            return skillList;
+    }
+}
+
+
+
+
+
+
+
+
+//testing code
+
+/* Resume bob = new Resume("bob", "bob123@gmail.com","201-312-3213",
                 new ArrayList<> (Arrays.asList(
                         new Education("BS","Criminal Justice","University of Maryland", 2013),
                         new Education("MBA", "Business Administration and Marketing", "Georgetown University", 2018))),
@@ -37,10 +165,4 @@ public class Main {
                         new Skills("HTML", "Proficient")))
         );
 
-        Collections.addAll(resumes, bob, chad);
-
-        for(Resume r: resumes) {
-            System.out.println("===============" + "\n" + r.displayText());
-        }
-    }
-}
+        Collections.addAll(resumes, bob, chad); */

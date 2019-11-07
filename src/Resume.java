@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Resume {
@@ -8,17 +9,18 @@ public class Resume {
     private ArrayList<Experience> experiences;
     private ArrayList<Skills> skillList;
 
+
     public Resume(){};
 
-    public Resume(String name, String email, String phoneNumber, ArrayList<Education> educationList, ArrayList<Experience> experiences, ArrayList<Skills> skillList) {
+    public Resume(String name, String email, String phoneNumber, ArrayList<Education> educationList, ArrayList<Experience> experiences, ArrayList<Skills> skillList){
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.educationList = educationList;
         this.experiences = experiences;
         this.skillList = skillList;
-
     }
+
 
     public ArrayList<Education> getEducationList() {
         return educationList;
@@ -35,6 +37,7 @@ public class Resume {
     public void setExperiences(ArrayList<Experience> experiences) {
         this.experiences = experiences;
     }
+
 
     public ArrayList<Skills> getSkillList() {
         return skillList;
