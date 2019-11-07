@@ -71,21 +71,20 @@ public class Resume {
     public String displayText() {
         String str = "";
         str += name + "\n" + email + "\n" + phoneNumber + "\n\n";
-        str = "Education";
+        str += "Education";
         for(Education e: educationList) {
             str +=  "\n" + e.getDegreeType() + " in " + e.getMajor() + "," + "\n" +
                     e.getSchool() + ", " + e.getGradYear() + "\n\n";
         }
-
+        str += "Experience";
         for(Experience ex: experiences) {
             str +=  "\n" + ex.getTitle() + "\n" +
                     ex.getCompany() + ", " + ex.getStartDate() + " - " + ex.getEndDate() + "\n" +
                    "Responsiblities "  + ", "  + ex.getDescription() + "\n\n";
         }
-
+        str += "Skills";
         for(Skills s: skillList) {
-            str += "Skills" + "\n" +
-                    s.getSkillName() + ", " + s.getRating() + "\n";
+            str += "\n" + s.getSkillName() + ", " + s.getRating();
         }
 
         return str;
